@@ -16,14 +16,16 @@ Beware of that dodgy egg sandwich or that drink you find in dumpster..
 
 ## INSTALL ##
 
-1) Edit the `config.lua` to suit your liking, ensuring to add all the food items required for your server
-2) Edit the `consumables_c.lua` to match your config items `(pay attention to the args == "number")`, edit everything to suit your server
-3) Edit the `consumables_s.lua` adding in all of your items, ensure that the args match the client side; refer to notes below if unsure
+1) Rename the resource to `boii-consumables` and drag into your server resources
+2) Add `ensure boii-consumables` into your `server.cfg`
+2) Edit the `config.lua` to suit your liking, ensuring to add all the food items required for your server
+3) Edit the `consumables_c.lua` to match your config items `(pay attention to the args == "number")`, edit everything to suit your server
+4) Edit the `consumables_s.lua` adding in all of your items, ensure that the args match the client side; refer to notes below if unsure
 --  TriggerClientEvent('boii-consumables:client:EatFood', source, 1, item.name) -- The number server side is your `args == "number"` ensure this matches your client
 --  TriggerClientEvent('eventname', source, args, item.name)
-4) If you are using the provided items copy the information provided under `### SHARED ###` into your `qb-core/shared/items.lua` or create your own items
-5) If you are using the provided items drag the images provided into your `qb-inventory/html/images`
-6) Restart your server and enjoy!
+5) If you are using the provided items copy the information provided under `### QBCORE/SHARED/ITEMS.LUA ###` into your `qb-core/shared/items.lua` or create your own items
+6) If you are using the provided items drag the images provided into your `qb-inventory/html/images`
+7) Restart your server and enjoy!
 
 ## QBCORE/SHARED/ITEMS.LUA ##
 ```
