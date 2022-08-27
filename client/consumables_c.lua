@@ -105,8 +105,7 @@ RegisterNetEvent('boii-consumables:client:EatFood', function(args, itemName)
         coords = coord,
         rotation = rotat,
     }, {}, function()
-        TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[itemName], 'remove')
-        TriggerServerEvent(RemoveItemEvent, itemName, amount)
+	TriggerServerEvent('boii-consumables:server:RemoveItem', itemName, amount)
         TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta] + consumable[itemName])
         TriggerServerEvent(RemoveStress, removestress)
         ClearPedTasks(player)
@@ -192,8 +191,7 @@ RegisterNetEvent('boii-consumables:client:EatRiskyFood', function(args, itemName
         coords = coord,
         rotation = rotat,
     }, {}, function()
-        TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[itemName], 'remove')
-        TriggerServerEvent(RemoveItemEvent, itemName, amount)
+        TriggerServerEvent('boii-consumables:server:RemoveItem', itemName, amount)
         TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta] + consumable[itemName])
         if (chance >= math.random(1, 100)) then
             FeelSick()
@@ -349,8 +347,7 @@ RegisterNetEvent('boii-consumables:client:Drink', function(args, itemName)
         coords = coord,
         rotation = rotat,
     }, {}, function()
-        TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[itemName], 'remove')
-        TriggerServerEvent(RemoveItemEvent, itemName, amount)
+        TriggerServerEvent('boii-consumables:server:RemoveItem', itemName, amount)
         TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta] + consumable[itemName])
         TriggerServerEvent(RemoveStress, removestress)
         ClearPedTasks(player)
@@ -422,8 +419,7 @@ RegisterNetEvent('boii-consumables:client:RiskyDrink', function(args, itemName)
         coords = coord,
         rotation = rotat,
     }, {}, function()
-        TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[itemName], 'remove')
-        TriggerServerEvent(RemoveItemEvent, itemName, amount)
+        TriggerServerEvent('boii-consumables:server:RemoveItem', itemName, amount)
         TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta] + consumable[itemName])
         if (chance >= math.random(1, 100)) then
             FeelSick()
@@ -538,8 +534,7 @@ RegisterNetEvent('boii-consumables:client:Alcohol', function(args, itemName)
         coords = coord,
         rotation = rotat,
     }, {}, function()
-        TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[itemName], 'remove')
-        TriggerServerEvent(RemoveItemEvent, itemName, amount)
+        TriggerServerEvent('boii-consumables:server:RemoveItem', itemName, amount)
         TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta] + consumable[itemName])
         AlcoholCount = AlcoholCount + 1
         if AlcoholCount > lightdrunkamount and AlcoholCount < heavydrunkamount then
@@ -576,11 +571,9 @@ RegisterNetEvent('boii-consumables:client:Open6Pack', function(args)
         additem = 'budweiser'
         lang = 'You opened a 6 pack of Budweiser!'
     end
-    TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[removeitem], 'remove')
-    TriggerServerEvent(RemoveItemEvent, removeitem, 1) -- Edit remove amount here
-    Wait(2000)
-    TriggerEvent('inventory:client:ItemBox', Core.Shared.Items[additem], 'add')
-    TriggerServerEvent(AddItemEvent, additem, 6) -- Edit return amount here
+    TriggerServerEvent('boii-consumables:server:RemoveItem', itemremove, 1)
+    Wait(2*1000) -- 2 seconds
+    TriggerServerEvent('boii-consumables:server:AddItem', itemadd, 6) 
     TriggerEvent('boii-consumables:notifications', lang, 'success')
 end)
 
@@ -600,7 +593,7 @@ function FeelSick()
         anim = 'idle_a',
         --flags = 49,
     }, {}, {}, function()
-    Wait(200) -- 2 seconds
+    Wait(200)
     TriggerEvent('animations:client:EmoteCommandStart', {'outofbreath'}) 
     Wait(3000)
     SetEntityHealth(player, GetEntityHealth(player) - 10) -- Edit the amount of HP to remove here 
