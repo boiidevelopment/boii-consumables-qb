@@ -13,6 +13,25 @@ local Core = exports[CoreFolder]:GetCoreObject()
 -- Remember to match the args to client side :) 
 -- None of the items listed below are qb-core standard you will have to edit the names/replace with your own items just copy what is done below and follow the notes!
 
+--<!>-- ADD/REMOVE ITEM EVENTS START --<!>--
+-- Remove item event; Added due to recent qb-core update.
+RegisterServerEvent('boii-consumables:server:RemoveItem', function(itemremove, amount)
+    local source = source
+    local Player = Core.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(itemremove, tonumber(amount)) then
+        TriggerClientEvent('inventory:client:ItemBox', source, Core.Shared.Items[itemremove], 'remove')
+    end
+end)
+-- Add item event; Added due to recent qb-core update.
+RegisterServerEvent('boii-consumables:server:AddItem', function(itemadd, amount)
+    local source = source
+    local Player = Core.Functions.GetPlayer(source)
+    if Player.Functions.AddItem(itemadd, tonumber(amount)) then
+        TriggerClientEvent('inventory:client:ItemBox', source, Core.Shared.Items[itemadd], 'add')
+    end
+end)
+--<!>-- ADD/REMOVE ITEM EVENTS END --<!>--
+
 --<!>-- RISKY FOOD ITEMS  START--<!>--
 -- Store items
 Core.Functions.CreateUseableItem('eggsandwich', function(source, item)
