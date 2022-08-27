@@ -10,7 +10,7 @@ author 'CASE#1993'
 
 description 'BOII | Development - Consumables Script'
 
-version '1.0'
+version '1.0.1'
 
 lua54 'yes'
 
