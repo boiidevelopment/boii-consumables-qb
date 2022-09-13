@@ -1,4 +1,4 @@
-# BOII | DEVELOPMENT - CONSUMABLES SCRIPT [QBCORE] #
+# BOII | DEVELOPMENT - CONSUMABLES SCRIPT [QB] #
 
 Here we have a simple script consumables script for your city.
 You can customise your food animations, bars, text, timers, etc.
