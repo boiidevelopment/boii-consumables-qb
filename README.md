@@ -1,34 +1,67 @@
-# BOII | DEVELOPMENT - CONSUMABLES SCRIPT [QB] #
+# BOII | DEVELOPMENT - UTILITY: CONSUMABLES #
 
-Here we have a simple script consumables script for your city.
+Here we have our updated consumables script!
 You can customise your food animations, bars, text, timers, etc.
 Some real world items and re-textured props have been provided, however I would urge that you make your own images/props, be unique!
-Comes with alocohol effects and a sickness effect.
+Comes with alcohol effects and a sickness effect.
 Sickness effect applied to alcohol, and "risky food" or "risky drinks".
 Beware of that dodgy egg sandwich or that drink you find in dumpster..
 
-## USAGE ##
+### INSTALL ###
 
-- Consume food as normal
-- Risky food or drinks have a chance to make you sick which removes HP
-- Alcohol effects for light and heavy drunk
-- Alcohol also has a chance to make you sick
+1) Drag and drop `boii-consumables` into your server resources
+2) Add `ensure boii-consumables` into your server.cfg before any resources you that will be using the events
+3) Edit the core information inside `config.lua` if required
+4) Copy images from `boii-consumables/images` into your inventory script. Default; `qb-inventory/html/images` if you are using the example items. If not then skip this step.
+5) Add the item information under **SHARED** into your servers `qb-core/shared/items.lua` if you are using the example items. If not then skip this step.
 
-## INSTALL ##
+### USAGE ###
 
-1) Rename the resource to `boii-consumables` and drag into your server resources
-2) Add `ensure boii-consumables` into your `server.cfg`
-2) Edit the `config.lua` to suit your liking, ensuring to add all the food items required for your server
-3) Edit the `consumables_c.lua` to match your config items `(pay attention to the args == "number")`, edit everything to suit your server
-4) Edit the `consumables_s.lua` adding in all of your items, ensure that the args match the client side; refer to notes below if unsure
---  TriggerClientEvent('boii-consumables:client:EatFood', source, 1, item.name) -- The number server side is your `args == "number"` ensure this matches your client
---  TriggerClientEvent('eventname', source, args, item.name)
-5) If you are using the provided items copy the information provided under `### QBCORE/SHARED/ITEMS.LUA ###` into your `qb-core/shared/items.lua` or create your own items
-6) If you are using the provided items drag the images provided into your `qb-inventory/html/images`
-7) Restart your server and enjoy!
+- Trigger the client events from any script by following the example format below!
+- Use `'boii-consumables:cl:Consumables'` to consume regular food and drinks
+- Use `'boii-consumables:cl:ConsumablesSickness'` to consume regular food and drinks with a chance to get sick
+- Use `'boii-consumables:cl:ConsumablesAlcohol'` to consume alcoholic drinks
 
-## QBCORE/SHARED/ITEMS.LUA ##
 ```
+- Consumables event example, used for regular food/drink
+- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
+ 
+Core.Functions.CreateUseableItem('cocacola', function(source, item)
+	TriggerClientEvent('boii-consumables:cl:Consumables', source, item.name, 'emptycan', 'thirst', math.random(10,40), math.random(5,10), 'Drinking CocaCola..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
+end)
+```
+
+```
+- Sickness event example, used for risky food/drink 
+- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "SICKNESS CHANCE", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
+ 
+Core.Functions.CreateUseableItem('dirtywater', function(source, item)
+	TriggerClientEvent('boii-consumables:cl:ConsumablesSickness', source, item.name, 'emptybottle', 'thirst', math.random(10,40), math.random(5,10), 50, 'Drinking Dirty Water..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
+end)
+```
+
+```
+- Alcohol event example, used by alcoholic drinks
+- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "SICKNESS CHANCE", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
+ 
+Core.Functions.CreateUseableItem('vodka', function(source, item)
+	TriggerClientEvent('boii-consumables:cl:ConsumablesAlcohol', source, item.name, 'emptyglassbottle', 'thirst', math.random(10,40), math.random(5,10), 50, 'Drinking Vodka..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
+end)
+```
+
+### SHARED ###
+
+```
+
+	--<!>-- CONSUMABLES --<!>--
+	-- Scrap
+	['emptycan'] 					= {['name'] = 'emptycan', 			 	  		['label'] = 'Empty Can', 				['weight'] = 350, 		['type'] = 'item', 		['image'] = 'emptycan.png', 		    ['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap aliuminum can..'},
+	['emptybottle'] 				= {['name'] = 'emptybottle', 			 	  	['label'] = 'Empty Bottle', 			['weight'] = 500, 		['type'] = 'item', 		['image'] = 'emptybottle.png', 		    ['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap plastic bottle..'},	
+	['emptyglassbottle'] 			= {['name'] = 'emptyglassbottle', 			 	['label'] = 'Empty Glass Bottle', 		['weight'] = 750, 		['type'] = 'item', 		['image'] = 'emptyglassbottle.png', 	['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap glass bottle..'},
+	['emptypapercup'] 				= {['name'] = 'emptypapercup', 			 	 	['label'] = 'Empty Paper Cup', 			['weight'] = 180, 		['type'] = 'item', 		['image'] = 'emptypapercup.png', 		['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'Some scrap cardboard..'},
+	['usedwrapper'] 				= {['name'] = 'usedwrapper', 			 		['label'] = 'Used Wrapper', 			['weight'] = 10, 		['type'] = 'item', 		['image'] = 'usedwrapper.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A used aluminum wrapper ..'},
+	['cardboard'] 					= {['name'] = 'cardboard', 			 	 		['label'] = 'Cardboard', 				['weight'] = 50, 		['type'] = 'item', 		['image'] = 'cardboard.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'Some scrap cardboard..'},
+
 	-- Food
 	['eggsandwich'] 				= {['name'] = 'eggsandwich', 			 	  	['label'] = 'Egg Sandwich', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'eggsandwich.png', 		    ['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A risky looking egg mayonaise sandwich..'},
 	['hamsandwich'] 				= {['name'] = 'hamsandwich', 			 	  	['label'] = 'Ham Sandwich', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'hamsandwich.png', 		    ['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A risky looking ham sandwich..'},
@@ -60,8 +93,8 @@ Beware of that dodgy egg sandwich or that drink you find in dumpster..
 	['vodka'] 				 		= {['name'] = 'vodka', 			  	  			['label'] = 'Vodka', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'vodka.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Vodka as it should be!'},
 ```
 
-## PREVIEW ##
-https://www.youtube.com/watch?v=G86Idiu12EI
-
-## SUPPORT ##
+### PREVIEW ###
+updated preview coming soon
+v1.0.0 - https://www.youtube.com/watch?v=G86Idiu12EI
+### SUPPORT ###
 https://discord.gg/MUckUyS5Kq
