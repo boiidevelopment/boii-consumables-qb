@@ -6,27 +6,25 @@ fx_version 'cerulean'
 
 game 'gta5'
 
-author 'CASE#1993'
+author 'case#1993'
 
-description 'BOII | Development - Consumables Script'
+description 'BOII | Development - Utility: Consumables'
 
-version '1.0.1'
+version '2.0.0'
 
 lua54 'yes'
 
 shared_scripts {
     'config.lua',
 }
-
-client_scripts {
-    'client/*.lua',
+client_scripts{
+    'client/*'
 }
-
 server_scripts {
-    'server/*.lua',
+    'server/*'
 }
 escrow_ignore {
-	'server/consumables_s.lua',
-	'client/consumables_c.lua',
-	'config.lua'
+    'config.lua',
+    'server/*',
+    'client/*'
 }
