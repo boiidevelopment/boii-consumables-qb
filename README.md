@@ -10,7 +10,7 @@ Beware of that dodgy egg sandwich or that drink you find in dumpster..
 ### INSTALL ###
 
 1) Drag and drop `boii-consumables` into your server resources
-2) Add `ensure boii-consumables` into your server.cfg before any resources you that will be using the events
+2) Add `ensure boii-consumables` into your server.cfg before any resources that will be using the events
 3) Edit the core information inside `config.lua` if required
 4) Copy images from `boii-consumables/images` into your inventory script. Default; `qb-inventory/html/images` if you are using the example items. If not then skip this step.
 5) Add the item information under **SHARED** into your servers `qb-core/shared/items.lua` if you are using the example items. If not then skip this step.
