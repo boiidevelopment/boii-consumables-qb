@@ -161,7 +161,8 @@ function FeelSick()
         Wait(200)
         TriggerEvent('animations:client:EmoteCommandStart', {'outofbreath'}) 
         Wait(3000)
-        SetEntityHealth(player, GetEntityHealth(player) - 3) -- Edit the amount of HP to remove here 
+        SetEntityHealth(player, GetEntityHealth(player) - 3) -- Edit the amount of HP to remove here
+	ClearPedTasks(player)
 	end, function() -- Cancel
 		TriggerEvent('inventory:client:busy:status', false)
 		TriggerEvent('boii-consumables:notify', 'Action Cancelled!', 'primary')
