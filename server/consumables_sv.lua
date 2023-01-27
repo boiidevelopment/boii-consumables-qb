@@ -6,6 +6,7 @@
 local Core = Config.CoreSettings.Core
 local CoreFolder = Config.CoreSettings.CoreFolder
 local Core = exports[CoreFolder]:GetCoreObject()
+local HudEvent = Config.CoreSettings.HudEvent
 --<!>-- DO NOT EDIT ANYTHING ABOVE THIS TEXT UNLESS YOU KNOW WHAT YOU ARE DOING SUPPORT WILL NOT BE PROVIDED IF YOU IGNORE THIS --<!>--
 
 --<!>-- ADD/REMOVE ITEM EVENTS START --<!>--
@@ -26,6 +27,27 @@ RegisterServerEvent('boii-consumables:sv:AddItem', function(itemadd, amount)
     end
 end)
 --<!>-- ADD/REMOVE ITEM EVENTS END --<!>--
+
+--<!>-- SET META DATA --<!>--
+RegisterServerEvent('boii-consumables:sv:SetMeta', function(meta, amount)
+    local src = source
+    local Player = Core.Functions.GetPlayer(src)
+    local hunger = Player.PlayerData.metadata['hunger']
+    local thirst = Player.PlayerData.metadata['thirst']
+    if meta == 'hunger' then
+        newhunger = hunger+amount
+        Player.Functions.SetMetaData(meta, newhunger)
+        TriggerClientEvent(HudEvent, src, newhunger, thirst)
+        return
+    end
+    if meta == 'thirst' then
+        newthirst = thirst+amount
+        Player.Functions.SetMetaData(meta, newthirst)
+        TriggerClientEvent(HudEvent, src, hunger, newthirst)
+        return
+    end
+end)
+--<!>-- SET META DATA --<!>--
 
 --<!>-- EXAMPLE ITEMS START --<!>--
 -- Drinks
@@ -77,13 +99,13 @@ Core.Functions.CreateUseableItem('peanutmandms', function(source, item)
 end)
 
 -- Risky food
-Core.Functions.CreateUseableItem('eggsandwhich', function(source, item)
+Core.Functions.CreateUseableItem('eggsandwich', function(source, item)
     TriggerClientEvent('boii-consumables:cl:ConsumablesSickness', source, item.name, 'cardboard', 'hunger', math.random(10,40), math.random(5,10), 80, 'Eating Egg Sandwhich..', math.random(3,5), 'mp_player_inteat@burger', 'mp_player_int_eat_burger_fp', 49, 'prop_sandwich_01', 60309, vector3(-0.005, 0.00, -0.01), vector3(175.0, 160.0, 0.0))
 end)
-Core.Functions.CreateUseableItem('tunasandwhich', function(source, item)
+Core.Functions.CreateUseableItem('tunasandwich', function(source, item)
     TriggerClientEvent('boii-consumables:cl:ConsumablesSickness', source, item.name, 'cardboard', 'hunger', math.random(10,40), math.random(5,10), 50, 'Eating Egg Sandwhich..', math.random(3,5), 'mp_player_inteat@burger', 'mp_player_int_eat_burger_fp', 49, 'prop_sandwich_01', 60309, vector3(-0.005, 0.00, -0.01), vector3(175.0, 160.0, 0.0))
 end)
-Core.Functions.CreateUseableItem('hamsandwhich', function(source, item)
+Core.Functions.CreateUseableItem('hamsandwich', function(source, item)
     TriggerClientEvent('boii-consumables:cl:ConsumablesSickness', source, item.name, 'cardboard', 'hunger', math.random(10,40), math.random(5,10), 20, 'Eating Egg Sandwhich..', math.random(3,5), 'mp_player_inteat@burger', 'mp_player_int_eat_burger_fp', 49, 'prop_sandwich_01', 60309, vector3(-0.005, 0.00, -0.01), vector3(175.0, 160.0, 0.0))
 end)
 
