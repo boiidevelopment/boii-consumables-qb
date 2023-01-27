@@ -45,7 +45,7 @@ end)
 --<!>-- CONSUMABLES FUNCTIONS START --<!>--
 -- Consume regular food/drinks
 function Consumables(itemremove, itemadd, meta, amount, stress, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
-    Core.Functions.Progressbar('pt_consumables', lang, timer*1000, false, true,{
+    Core.Functions.Progressbar('boii_consumables', lang, timer*1000, false, true,{
         disableMovement = false,
         disableCarMovement = false,
         disableMouse = false,
@@ -72,7 +72,7 @@ end
 
 -- Consume food/drinks with sickness chance
 function ConsumablesSickness(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
-    Core.Functions.Progressbar('pt_consumablesick', lang, timer*1000, false, true,{
+    Core.Functions.Progressbar('boii_consumablesick', lang, timer*1000, false, true,{
         disableMovement = false,
         disableCarMovement = false,
         disableMouse = false,
@@ -103,7 +103,7 @@ end
 
 -- Consume alcohol
 function ConsumablesAlcohol(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
-    Core.Functions.Progressbar('pt_consumablesick', lang, timer*1000, false, true,{
+    Core.Functions.Progressbar('boii_consumablesick', lang, timer*1000, false, true,{
         disableMovement = false,
         disableCarMovement = false,
         disableMouse = false,
