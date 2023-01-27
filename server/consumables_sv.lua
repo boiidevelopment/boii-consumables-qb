@@ -9,6 +9,15 @@ local Core = exports[CoreFolder]:GetCoreObject()
 local HudEvent = Config.CoreSettings.HudEvent
 --<!>-- DO NOT EDIT ANYTHING ABOVE THIS TEXT UNLESS YOU KNOW WHAT YOU ARE DOING SUPPORT WILL NOT BE PROVIDED IF YOU IGNORE THIS --<!>--
 
+--<!>-- SERVER PRINT --<!>--
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+      return
+    end
+    print('^5--<^3!^5>-- ^7BOII ^5| ^7DEVELOPMENT ^5--<^3!^5>-- ^7UTLITY: CONSUMABLES V2.0.3 ^5--<^3!^5>--^7')
+end)
+--<!>-- SERVER PRINT --<!>--
+
 --<!>-- ADD/REMOVE ITEM EVENTS START --<!>--
 -- Remove item event; Added due to recent qb-core update.
 RegisterServerEvent('boii-consumables:sv:RemoveItem', function(itemremove, amount)
