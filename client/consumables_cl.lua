@@ -62,7 +62,7 @@ function Consumables(itemremove, itemadd, meta, amount, stress, lang, timer, ani
     }, {}, function()
         TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
         TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
-        TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta]+amount)
+        TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
         TriggerServerEvent(RemoveStress, stress)
     end, function() -- Cancel
         TriggerEvent('inventory:client:busy:status', false)
@@ -89,7 +89,7 @@ function ConsumablesSickness(itemremove, itemadd, meta, amount, stress, chance, 
     }, {}, function()
         TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
         TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
-        TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta]+amount)
+        TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
         if (chance >= math.random(1, 100)) then
             FeelSick()
         else
@@ -121,7 +121,7 @@ function ConsumablesAlcohol(itemremove, itemadd, meta, amount, stress, chance, l
             AlcoholCount = AlcoholCount + 1
             TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
             TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
-            TriggerServerEvent(MetaDataEvent, meta, Core.Functions.GetPlayerData().metadata[meta]+amount)
+            TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
         if AlcoholCount > 3 and AlcoholCount < 7 then -- Edit the amount of alcohol required to trigger drunk effects here
             LightDrunkEffect()
             TriggerEvent(EvidenceEvent, 'alcohol', 200)
