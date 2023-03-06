@@ -1,100 +1,70 @@
-# BOII | DEVELOPMENT - UTILITY: CONSUMABLES #
+# BOII | DEVELOPMENT - UTILITY: CONSUMABLES V3.0.0
 
-Here we have our updated consumables script!
-You can customise your food animations, bars, text, timers, etc.
-Some real world items and re-textured props have been provided, however I would urge that you make your own images/props, be unique!
-Comes with alcohol effects and a sickness effect.
-Sickness effect applied to alcohol, and "risky food" or "risky drinks".
-Beware of that dodgy egg sandwich or that drink you find in dumpster..
+Here we have a simple to use consumables script to allow additional customisation to eating/drinking.
+Includes a custom sickness chance for those risky looking food items.
+Includes alcoholic drinks and drunk effects.
+Enjoy!
 
-### INSTALL ###
+### INSTALL
 
-1) Drag and drop `boii-consumables` into your server resources
-2) Add `ensure boii-consumables` into your server.cfg before any resources that will be using the events
-3) Edit the core information inside `config.lua` if required
-4) Copy images from `boii-consumables/images` into your inventory script. Default; `qb-inventory/html/images` if you are using the example items. If not then skip this step.
-5) Add the item information under **SHARED** into your servers `qb-core/shared/items.lua` if you are using the example items. If not then skip this step.
+1. Customise `shared/config.lua` & `shared/language.lua` to your liking
+2. Drag and drop `boii-consumables` into your server resources ensuring your load order is correct **Refer to our f-a-q if unsure**
+3. Copy example items provided under **QB-CORE/SHARED/ITEMS.LUA** into your `qb-core/shared/items.lua` if you are keeping the example items; If not you can skip this
+4. Copy images provided from `boii-consumables/html/images` into your `qb-inventory/html/images` if you are keeping the example items; If not you can skip this
+5. Restart server
 
-### USAGE ###
+### QB-CORE/SHARED/ITEMS.LUA
 
-- Trigger the client events from any script by following the example format below!
-- Use `'boii-consumables:cl:Consumables'` to consume regular food and drinks
-- Use `'boii-consumables:cl:ConsumablesSickness'` to consume regular food and drinks with a chance to get sick
-- Use `'boii-consumables:cl:ConsumablesAlcohol'` to consume alcoholic drinks
+    --<!>-- CONSUMABLES --<!>--
+    -- Return items
+    ['empty_glass_bottle'] 			= {['name'] = 'empty_glass_bottle', 			 	['label'] = 'Empty Glass Bottle', 		['weight'] = 750, 		['type'] = 'item', 		['image'] = 'empty_glass_bottle.png', 	['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap glass drinking bottle..'},
+    ['empty_plastic_bottle'] 			= {['name'] = 'empty_plastic_bottle', 			 	['label'] = 'Empty Plastic Bottle', 		['weight'] = 750, 		['type'] = 'item', 		['image'] = 'empty_plastic_bottle.png', 	['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap plastic drinking bottle..'},
+    ['empty_can'] 			= {['name'] = 'empty_can', 			 	['label'] = 'Empty Can', 		['weight'] = 450, 		['type'] = 'item', 		['image'] = 'empty_can.png', 	['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap aluminum drinks can..'},
+    ['cardboard'] 					= {['name'] = 'cardboard', 			 	 		['label'] = 'Cardboard', 				['weight'] = 50, 		['type'] = 'item', 		['image'] = 'cardboard.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'Some scrap cardboard..'},
+    ['wrapper'] 					= {['name'] = 'wrapper', 			 	 		['label'] = 'Wrapper', 				['weight'] = 50, 		['type'] = 'item', 		['image'] = 'wrapper.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A used candy wrapper..'},
+    
+    -- Alcohol
+    ['beer_am'] 				 		= {['name'] = 'beer_am', 			  	  		['label'] = 'beer_am', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_am.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of AM Beer!'},
+    ['beer_logger'] 				 		= {['name'] = 'beer_logger', 			  	  		['label'] = 'beer_logger', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_logger.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Logger!'},
+    ['beer_piss'] 				 		= {['name'] = 'beer_piss', 			  	  		['label'] = 'beer_piss', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_piss.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Pisshwasser!'},
+    ['beer_dusche'] 				 		= {['name'] = 'beer_dusche', 			  	  		['label'] = 'beer_dusche', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_dusche.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Dusche Gold!'},
+    ['beer_patriot'] 				 		= {['name'] = 'beer_patriot', 			  	  		['label'] = 'beer_patriot', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_patriot.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Patriot!'},
+    ['beer_stz'] 				 		= {['name'] = 'beer_stz', 			  	  		['label'] = 'beer_stz', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_stz.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Stronzo!'},
+    ['beer_pride'] 				 		= {['name'] = 'beer_pride', 			  	  		['label'] = 'beer_pride', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_pride.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Pride!'},
+    ['beer_jakey'] 				 		= {['name'] = 'beer_jakey', 			  	  		['label'] = 'beer_jakey', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_jakey.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Jakeys!'},
+    ['beer_bar'] 				 		= {['name'] = 'beer_bar', 			  	  		['label'] = 'beer_bar', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_bar.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Barracho!'},
+    ['beer_blr'] 				 		= {['name'] = 'beer_blr', 			  	  		['label'] = 'beer_blr', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'beer_blr.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Blarneys!'},
+    ['whiskey_mount'] 				 		= {['name'] = 'whiskey_mount', 			  	  		['label'] = 'Mount Whiskey', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'whiskey_mount.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Mount Whiskey!'},
+    ['whiskey_macbeth'] 				 		= {['name'] = 'whiskey_macbeth', 			  	  		['label'] = 'Macbeth Whiskey', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'whiskey_mount.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Macbeth Whiskey!'},
+    ['whiskey_richards'] 				 		= {['name'] = 'whiskey_richards', 			  	  		['label'] = 'Richards Whiskey', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'whiskey_richards.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Richards Whiskey!'},
+    ['vodka'] 				 		= {['name'] = 'vodka', 			  	  		['label'] = 'Vodka', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'vodka.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Vodka!'},
+    ['rum'] 				 		= {['name'] = 'rum', 			  	  		['label'] = 'Rum', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'rum.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Rum!'},
+    ['tequila'] 				 		= {['name'] = 'tequila', 			  	  		['label'] = 'Tequila', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'tequila.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Tequila!'},
+    ['brandy_cardi'] 				 		= {['name'] = 'brandy_cardi', 			  	  		['label'] = 'Cardiaque Brandy', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'brandy_cardi.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Cardiaque Brandy!'},
+    ['brandy_cognac'] 				 		= {['name'] = 'brandy_cognac', 			  	  		['label'] = 'Cognac Brandy', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'brandy_cognac.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Cognac Brandy!'},
+    ['wine_red'] 				 		= {['name'] = 'wine_red', 			  	  		['label'] = 'Red Wine', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'wine_red.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Red Wine!'},
+    ['wine_rose'] 				 		= {['name'] = 'wine_rose', 			  	  		['label'] = 'Rose Wine', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'wine_rose.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of Rose Wine!'},
+    ['wine_white'] 				 		= {['name'] = 'wine_white', 			  	  		['label'] = 'White Wine', 					['weight'] = 1500, 		['type'] = 'item', 		['image'] = 'wine_white.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of White Wine!'},
 
-```
-- Consumables event example, used for regular food/drink
-- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
- 
-Core.Functions.CreateUseableItem('cocacola', function(source, item)
-	TriggerClientEvent('boii-consumables:cl:Consumables', source, item.name, 'emptycan', 'thirst', math.random(10,40), math.random(5,10), 'Drinking CocaCola..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
-end)
-```
+    -- Drinks
+    ['water'] 						= {['name'] = 'water', 			  	  			['label'] = 'Water', 					['weight'] = 800, 		['type'] = 'item', 		['image'] = 'water.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Water the way nature intended.'},
+    ['dirtywater'] 						= {['name'] = 'dirtywater', 			  	  			['label'] = 'Dirty Water', 					['weight'] = 800, 		['type'] = 'item', 		['image'] = 'dirtywater.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Water the way nature intended. Sort of..'},
+    ['ecola'] 						= {['name'] = 'ecola', 			  	  			['label'] = 'E-Cola', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'ecola.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Deliciously Infectious!'},
+    ['sprunk'] 						= {['name'] = 'sprunk', 			  	  			['label'] = 'Sprunk', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'sprunk.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'The Essence of Life!'},
+    ['orangotang'] 						= {['name'] = 'orangotang', 			  	  			['label'] = 'Orang-O-Tang', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'orangotang.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'The New Munkey Juice!'},
+    ['coffee'] 						= {['name'] = 'coffee', 			  	  			['label'] = 'Coffee', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'coffee.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Free The Bean!'},
+    ['tea'] 						= {['name'] = 'tea', 			  	  			['label'] = 'Tea', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'tea.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Not as good as yorkshire tea..'},
 
-```
-- Sickness event example, used for risky food/drink 
-- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "SICKNESS CHANCE", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
- 
-Core.Functions.CreateUseableItem('dirtywater', function(source, item)
-	TriggerClientEvent('boii-consumables:cl:ConsumablesSickness', source, item.name, 'emptybottle', 'thirst', math.random(10,40), math.random(5,10), 50, 'Drinking Dirty Water..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
-end)
-```
-
-```
-- Alcohol event example, used by alcoholic drinks
-- "EVENT", "SOURCE", "ITEM TO REMOVE", "ITEM TO ADD", "METADATA", "AMOUNT TO INCREASE META", "AMOUNT TO DECREASE STRESS", "SICKNESS CHANCE", "PROGRESS BAR TEXT", "PROGRESS BAR TIMER IN SECONDS", "ANIMATION DICTIONARY", "ANIMATION", "ANIMATION FLAGS", "PROP", "BONE INDEX", "PROP COORDS", "PROP ROTATION"
- 
-Core.Functions.CreateUseableItem('vodka', function(source, item)
-	TriggerClientEvent('boii-consumables:cl:ConsumablesAlcohol', source, item.name, 'emptyglassbottle', 'thirst', math.random(10,40), math.random(5,10), 50, 'Drinking Vodka..', math.random(3,5), 'mp_player_intdrink', 'loop_bottle', 49, 'prop_ecola_can', 60309, vector3(0.0, 0.0, 0.05), vector3(0.0, 0.0, 0.0))
-end)
-```
-
-### SHARED ###
-
-```
-
-	--<!>-- CONSUMABLES --<!>--
-	-- Scrap
-	['emptycan'] 					= {['name'] = 'emptycan', 			 	  		['label'] = 'Empty Can', 				['weight'] = 350, 		['type'] = 'item', 		['image'] = 'emptycan.png', 		    ['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap aliuminum can..'},
-	['emptybottle'] 				= {['name'] = 'emptybottle', 			 	  	['label'] = 'Empty Bottle', 			['weight'] = 500, 		['type'] = 'item', 		['image'] = 'emptybottle.png', 		    ['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap plastic bottle..'},	
-	['emptyglassbottle'] 			= {['name'] = 'emptyglassbottle', 			 	['label'] = 'Empty Glass Bottle', 		['weight'] = 750, 		['type'] = 'item', 		['image'] = 'emptyglassbottle.png', 	['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A scrap glass bottle..'},
-	['emptypapercup'] 				= {['name'] = 'emptypapercup', 			 	 	['label'] = 'Empty Paper Cup', 			['weight'] = 180, 		['type'] = 'item', 		['image'] = 'emptypapercup.png', 		['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'Some scrap cardboard..'},
-	['usedwrapper'] 				= {['name'] = 'usedwrapper', 			 		['label'] = 'Used Wrapper', 			['weight'] = 10, 		['type'] = 'item', 		['image'] = 'usedwrapper.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'A used aluminum wrapper ..'},
-	['cardboard'] 					= {['name'] = 'cardboard', 			 	 		['label'] = 'Cardboard', 				['weight'] = 50, 		['type'] = 'item', 		['image'] = 'cardboard.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = false,  ['combinable'] = nil,   ['description'] = 'Some scrap cardboard..'},
-
-	-- Food
+    -- Food items
 	['eggsandwich'] 				= {['name'] = 'eggsandwich', 			 	  	['label'] = 'Egg Sandwich', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'eggsandwich.png', 		    ['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A risky looking egg mayonaise sandwich..'},
 	['hamsandwich'] 				= {['name'] = 'hamsandwich', 			 	  	['label'] = 'Ham Sandwich', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'hamsandwich.png', 		    ['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A risky looking ham sandwich..'},
 	['tunasandwich'] 				= {['name'] = 'tunasandwich', 			 	  	['label'] = 'Tuna Sandwich', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'tunasandwich.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A risky looking tuna mayonaise sandwich..'},
-	
-	-- Snacks
-	['mandms'] 		 				= {['name'] = 'mandms', 			  			['label'] = 'M&Ms', 					['weight'] = 120, 		['type'] = 'item', 		['image'] = 'mandms.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'It melts in your mouth, not in your hands!'},
-	['peanutmandms'] 		 		= {['name'] = 'peanutmandms', 			  		['label'] = 'Peanut M&Ms', 				['weight'] = 120, 		['type'] = 'item', 		['image'] = 'peanutmandms.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'It melts in your mouth, not in your hands!'},
-	['hersheysbar'] 		 		= {['name'] = 'hersheysbar', 			  		['label'] = 'Hersheys Bar', 			['weight'] = 120, 		['type'] = 'item', 		['image'] = 'hersheysbar.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Pure happiness. The great American chocolate bar!'},
+    ['psnqs'] 				= {['name'] = 'psnqs', 			 	  	['label'] = 'Ps & Qs', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'psnqs.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A packet of Ps & Qs!'},
+    ['meteorite'] 				= {['name'] = 'meteorite', 			 	  	['label'] = 'Meteorite', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'meteorite.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A Meteorite chocolate bar!'},
+    ['egochaser'] 				= {['name'] = 'egochaser', 			 	  	['label'] = 'Egochaser', 			['weight'] = 380, 		['type'] = 'item', 		['image'] = 'egochaser.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,   ['combinable'] = nil,   ['description'] = 'A Egochaser chocolate bar!'},
 
-	-- Drinks
-	['cocacola'] 				 	= {['name'] = 'cocacola', 			  	  		['label'] = 'CocaCola', 				['weight'] = 330, 		['type'] = 'item', 		['image'] = 'cocacola.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'CocaCola, Taste The Feeling!'},
-	['pepsi'] 				 		= {['name'] = 'pepsi', 			  	  			['label'] = 'Pepsi', 					['weight'] = 330, 		['type'] = 'item', 		['image'] = 'pepsi.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Every Pepsi Refreshes The World!'},
-	['drpepper'] 				 	= {['name'] = 'drpepper', 			  	  		['label'] = 'Dr Pepper', 				['weight'] = 330, 		['type'] = 'item', 		['image'] = 'drpepper.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Dr Pepper, whats the worst that can happen!'},
-	['mountaindew'] 				= {['name'] = 'mountaindew', 			  	  	['label'] = 'Mountain Dew', 			['weight'] = 330, 		['type'] = 'item', 		['image'] = 'mountaindew.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Do the DEW!'},
-	['water'] 						= {['name'] = 'water', 			  	  			['label'] = 'Water', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'water.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Water the way nature intended.'},
-	['coffee'] 				 		= {['name'] = 'coffee', 			  	  		['label'] = 'Coffee', 					['weight'] = 400, 		['type'] = 'item', 		['image'] = 'coffee.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'No ordinary coffee!'},
-	['tea'] 				 		= {['name'] = 'tea', 			  	  			['label'] = 'Tea', 						['weight'] = 400, 		['type'] = 'item', 		['image'] = 'tea.png', 					['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Keep it Tea!'},
-	['hotchocolate'] 				= {['name'] = 'hotchocolate', 			  	  	['label'] = 'Hot Chocolate', 			['weight'] = 400, 		['type'] = 'item', 		['image'] = 'hotchocolate.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Moments of Joy!'},
-	['dirtywater'] 					= {['name'] = 'dirtywater', 			  	  	['label'] = 'Dirty Water', 				['weight'] = 500, 		['type'] = 'item', 		['image'] = 'dirtywater.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of dirty water, drink at your own risk!'},
-	['yellowliquid'] 				= {['name'] = 'yellowliquid', 			  	  	['label'] = 'Yellow Liquid', 			['weight'] = 500, 		['type'] = 'item', 		['image'] = 'yellowliquid.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of fanta.. maybe.. who knows..'},
+### PREVIEW
+UPDATED PREVIEW COMING SOON
 
-	-- Alcohol
-	['corona'] 				 		= {['name'] = 'corona', 			  	  		['label'] = 'Corona', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'corona.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of the Finest Beer!'},
-	['corona6pack'] 				= {['name'] = 'corona6pack', 			  	  	['label'] = 'Corona 6 Pack', 			['weight'] = 3000, 		['type'] = 'item', 		['image'] = 'corona6pack.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A 6 pack of the Finest Beer!'},
-	['budweiser'] 				 	= {['name'] = 'budweiser', 			  	  		['label'] = 'Budweiser', 				['weight'] = 500, 		['type'] = 'item', 		['image'] = 'budweiser.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A bottle of the King of Beers!'},
-	['budweiser6pack'] 				= {['name'] = 'budweiser6pack', 			  	['label'] = 'Budweiser 6 Pack', 		['weight'] = 3000, 		['type'] = 'item', 		['image'] = 'budweiser6pack.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'A 6 pack of the King of Beers!'},
-	['whiskey'] 				 	= {['name'] = 'whiskey', 			  	  		['label'] = 'Whiskey', 					['weight'] = 750, 		['type'] = 'item', 		['image'] = 'whiskey.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Make It Count!'},
-	['vodka'] 				 		= {['name'] = 'vodka', 			  	  			['label'] = 'Vodka', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'vodka.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,  ['description'] = 'Vodka as it should be!'},
-```
-
-### PREVIEW ###
-updated preview coming soon
-v1.0.0 - https://www.youtube.com/watch?v=G86Idiu12EI
-### SUPPORT ###
+### SUPPORT
 https://discord.gg/MUckUyS5Kq
