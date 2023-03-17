@@ -229,7 +229,7 @@ local function LightDrunk()
     SetPedMotionBlur(player, false)
 end
 
-local function HeavyDrunkEffect()
+local function HeavyDrunk()
     local player = PlayerPedId()
     if IsPedWalking(player) or IsPedRunning(player) then
         SetPedToRagdollWithFall(player, 2500, 4000, 1, GetEntityForwardVector(player), 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
