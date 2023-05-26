@@ -10,7 +10,7 @@ author 'case#1993'
 
 description 'BOII | Development - Utility: Consumables'
 
-version '3.0.0'
+version '3.0.1'
 
 lua54 'yes'
 
@@ -22,9 +22,4 @@ client_scripts{
 }
 server_scripts {
     'server/*'
-}
-escrow_ignore {
-    'shared/*',
-    'server/*',
-    'client/*'
 }
