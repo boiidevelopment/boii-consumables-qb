@@ -80,6 +80,7 @@ local function EatFood(itemname)
                     ThrowUp(player, Config.Consumables.Food[itemname].removehealth, Config.Consumables.Food[itemname].stress)
                 end
             end
+	    	ClearPedTasks(player)		
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
@@ -111,6 +112,7 @@ local function EatFood(itemname)
                     ThrowUp(player, Config.Consumables.Food[itemname].removehealth, Config.Consumables.Food[itemname].stress)
                 end
             end
+	    	ClearPedTasks(player)			
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
@@ -154,6 +156,7 @@ local function Drink(itemname)
                     ThrowUp(player, Config.Consumables.Drinks[itemname].removehealth, Config.Consumables.Drinks[itemname].stress)
                 end
             end
+			ClearPedTasks(player)	
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
@@ -185,6 +188,7 @@ local function Drink(itemname)
                     ThrowUp(player, Config.Consumables.Drinks[itemname].removehealth, Config.Consumables.Drinks[itemname].stress)
                 end
             end
+			ClearPedTasks(player)	
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
@@ -311,6 +315,7 @@ local function Alcohol(itemname)
             if (Config.Consumables.Alcohol[itemname].sickchance >= math.random(1, 100)) then
                 ThrowUp(player, Config.Consumables.Alcohol[itemname].removehealth, Config.Consumables.Alcohol[itemname].stress)
             end
+			ClearPedTasks(player)
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
@@ -346,6 +351,7 @@ local function Alcohol(itemname)
             if (Config.Consumables.Alcohol[itemname].sickchance >= math.random(1, 100)) then
                 ThrowUp(player, Config.Consumables.Alcohol[itemname].removehealth, Config.Consumables.Alcohol[itemname].stress)
             end
+			ClearPedTasks(player)
         end, function() -- Cancel
             TriggerEvent('inventory:client:busy:status', false)
             TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
