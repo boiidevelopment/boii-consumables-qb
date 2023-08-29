@@ -63,3 +63,24 @@ RegisterServerEvent('boii-consumables:sv:RemoveMeta', function(amount, amount2)
     TriggerClientEvent(HudEvent, src, newhunger, newthirst)
 end)
 --<!>-- SET META DATA --<!>--
+
+--<!>-- SET META DATA --<!>--
+RegisterServerEvent('boii-consumables:sv:SetMeta', function(meta, amount)
+    local src = source
+    local Player = Core.Functions.GetPlayer(src)
+    local hunger = Player.PlayerData.metadata['hunger']
+    local thirst = Player.PlayerData.metadata['thirst']
+    if meta == 'hunger' then
+        newhunger = hunger+amount
+        Player.Functions.SetMetaData(meta, newhunger)
+        TriggerClientEvent(HudEvent, src, newhunger, thirst)
+        return
+    end
+    if meta == 'thirst' then
+        newthirst = thirst+amount
+        Player.Functions.SetMetaData(meta, newthirst)
+        TriggerClientEvent(HudEvent, src, hunger, newthirst)
+        return
+    end
+end)
+--<!>-- SET META DATA --<!>--

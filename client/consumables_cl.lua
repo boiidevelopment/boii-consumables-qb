@@ -360,6 +360,132 @@ local function Alcohol(itemname)
 end
 --<!>-- ALCOHOL --<!>--
 
+--<!>-- CONSUMABLES --<!>--
+function Consumables(itemremove, itemadd, meta, amount, stress, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    Core.Functions.Progressbar('boii_consumables', lang, timer*1000, false, true,{
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = false
+    }, {
+        animDict = animd,
+        anim = anims,
+        flags = flag
+    }, {
+        model = prop,
+        bone = bones,
+        coords = coord,
+        rotation = rotat
+    }, {}, function()
+        TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
+        TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
+        TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
+        TriggerServerEvent(RemoveStress, stress)
+    end, function() -- Cancel
+        TriggerEvent('inventory:client:busy:status', false)
+        TriggerEvent('boii-consumables:notify', Language.Shared['cancelled'], 'primary')
+    end)
+end
+--<!>-- CONSUMABLES --<!>--
+
+--<!>-- OLDER SCRIPTS --<!>--
+function ConsumablesSickness(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    Core.Functions.Progressbar('boii_consumablesick', lang, timer*1000, false, true,{
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = false
+    }, {
+        animDict = animd,
+        anim = anims,
+        flags = flag
+    }, {
+        model = prop,
+        bone = bones,
+        coords = coord,
+        rotation = rotat
+    }, {}, function()
+        TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
+        TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
+        TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
+        if (chance >= math.random(1, 100)) then
+            FeelSick()
+        else
+            TriggerServerEvent(RemoveStress, stress)
+        end
+    end, function() -- Cancel
+        TriggerEvent('inventory:client:busy:status', false)
+        TriggerEvent('boii-consumables:notify', 'Action Cancelled!', 'primary')
+    end)
+end
+
+function ConsumablesAlcohol(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    Core.Functions.Progressbar('boii_consumablesick', lang, timer*1000, false, true,{
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = false
+    }, {
+        animDict = animd,
+        anim = anims,
+        flags = flag
+    }, {
+        model = prop,
+        bone = bones,
+        coords = coord,
+        rotation = rotat
+    }, {}, function()
+            AlcoholCount = AlcoholCount + 1
+            TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
+            TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
+            TriggerServerEvent('boii-consumables:sv:SetMeta', meta, amount)
+        if AlcoholCount > 3 and AlcoholCount < 7 then -- Edit the amount of alcohol required to trigger drunk effects here
+            LightDrunk()
+            TriggerEvent(EvidenceEvent, 'alcohol', 200)
+            TriggerServerEvent(RemoveStress, stress)
+        elseif AlcoholCount >= 7 then -- Edit the amount of alcohol required to trigger drunk effects here
+            HeavyDrunk()
+            TriggerEvent(EvidenceEvent, 'heavyalcohol', 200)
+            TriggerServerEvent(RemoveStress, stress)
+            TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
+            TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 1)
+        end
+        if (chance >= math.random(1, 100)) then
+            FeelSick()
+        end
+    end, function() -- Cancel
+        TriggerEvent('inventory:client:busy:status', false)
+        TriggerEvent('boii-consumables:notify', 'Action Cancelled!', 'primary')
+    end)
+end
+
+-- Sickness
+function FeelSick()
+    local player = PlayerPedId()
+    Wait(2000) -- 2 seconds
+    TriggerEvent('boii-consumables:notify', 'You feel sick..', 'primary')
+    Wait(5000) -- 5 seconds
+    Core.Functions.Progressbar('feel_sick', 'About To Puke..', 7500, false, true,{
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = 'move_m@_idles@out_of_breath',
+        anim = 'idle_a',
+        flags = 49,
+    }, {}, {}, function()
+        Wait(200)
+        TriggerEvent('animations:client:EmoteCommandStart', {'outofbreath'}) 
+        Wait(3000)
+        SetEntityHealth(player, GetEntityHealth(player) - 3) -- Edit the amount of HP to remove here
+	ClearPedTasks(player)
+	end, function() -- Cancel
+		TriggerEvent('inventory:client:busy:status', false)
+		TriggerEvent('boii-consumables:notify', 'Action Cancelled!', 'primary')
+	end) 
+end
+
 --<!>-- EVENTS --<!>--
 RegisterNetEvent('boii-consumables:cl:EatFood', function(itemname)
     EatFood(itemname)
@@ -372,4 +498,25 @@ end)
 RegisterNetEvent('boii-consumables:cl:Alcohol', function(itemname)
     Alcohol(itemname)
 end)
+
+RegisterNetEvent('boii-consumables:cl:Consumables', function(itemremove, itemadd, meta, amount, stress, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    Consumables(itemremove, itemadd, meta, amount, stress, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+end)
+
+RegisterNetEvent('boii-consumables:cl:ConsumablesSickness', function(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    ConsumablesSickness(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+end)
+
+RegisterNetEvent('boii-consumables:cl:ConsumablesAlcohol', function(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+    ConsumablesAlcohol(itemremove, itemadd, meta, amount, stress, chance, lang, timer, animd, anims, flag, prop, bones, coord, rotat)
+end)
+
+RegisterNetEvent('boii-consumables:cl:Open6Pack', function(itemremove, itemadd, lang)
+    TriggerServerEvent('boii-consumables:sv:RemoveItem', itemremove, 1)
+    Wait(2*1000) -- 2 seconds
+    TriggerServerEvent('boii-consumables:sv:AddItem', itemadd, 6) 
+    TriggerEvent('boii-consumables:notify', lang, 'success')
+end)
+
+
 --<!>-- EVENTS --<!>--
